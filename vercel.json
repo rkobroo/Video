@@ -1,3 +1,4 @@
+
 {
   "version": 2,
   "builds": [
@@ -12,11 +13,6 @@
       "dest": "main.py"
     }
   ],
-  "functions": {
-    "main.py": {
-      "maxDuration": 60
-    }
-  },
   "env": {
     "PYTHONPATH": ".vercel/source",
     "FLASK_ENV": "production"
