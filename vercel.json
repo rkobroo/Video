@@ -14,7 +14,6 @@
     }
   ],
   "env": {
-    "PYTHONPATH": ".vercel/source",
-    "FLASK_ENV": "production"
+    "PYTHONPATH": ".vercel/source"
   }
 }
