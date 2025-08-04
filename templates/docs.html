@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Video Downloader</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .code-block {
+            background-color: var(--bs-dark);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-download me-2"></i>Video Downloader API
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="display-4 mb-4">API Documentation</h1>
+                
+                <!-- Overview -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Overview</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>The Social Media Video Downloader API allows you to download videos from various platforms using yt-dlp. All API endpoints return JSON responses and support proper HTTP status codes.</p>
+                        <p><strong>Base URL:</strong> <code>/api</code></p>
+                        <p><strong>Rate Limits:</strong> Unlimited access</p>
+                    </div>
+                </div>
+
+                <!-- Endpoints -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Endpoints</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Get Video Info -->
+                        <h4 class="text-primary">POST /api/info</h4>
+                        <p>Get video metadata without downloading the file.</p>
+                        <p><strong>Rate Limit:</strong> Unlimited</p>
+                        
+                        <h5>Request Body:</h5>
+                        <div class="code-block">
+{
+  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+}
+                        </div>
+                        
+                        <h5>Response:</h5>
+                        <div class="code-block">
+{
+  "success": true,
+  "metadata": {
+    "title": "Video Title",
+    "duration": 212,
+    "uploader": "Channel Name",
+    "upload_date": "20230101",
+    "view_count": 1000000,
+    "thumbnail": "https://...",
+    "description": "Video description...",
+    "platform": "Youtube",
+    "formats_available": 15,
+    "webpage_url": "https://..."
+  },
+  "supported_formats": [...]
+}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Download Video -->
+                        <h4 class="text-primary">POST /api/download</h4>
+                        <p>Download a video with specified quality options. Files are automatically named using the video title (including emojis and special characters).</p>
+                        <p><strong>Rate Limit:</strong> Unlimited</p>
+                        
+                        <h5>Request Body:</h5>
+                        <div class="code-block">
+{
+  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "format": "best[height<=720]",
+  "audio_only": false
+}
+                        </div>
+                        
+                        <h5>Response:</h5>
+                        <p>Returns the video file as a download or JSON with download information.</p>
+
+                        <hr class="my-4">
+
+                        <!-- Get Available Formats -->
+                        <h4 class="text-primary">POST /api/formats</h4>
+                        <p>Get all available formats for a video.</p>
+                        <p><strong>Rate Limit:</strong> Unlimited</p>
+                        
+                        <h5>Request Body:</h5>
+                        <div class="code-block">
+{
+  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+}
+                        </div>
+                        
+                        <h5>Response:</h5>
+                        <div class="code-block">
+{
+  "success": true,
+  "formats": [
+    {
+      "format_id": "136",
+      "ext": "mp4",
+      "resolution": "720x1280",
+      "filesize": 15728640,
+      "fps": 30,
+      "vcodec": "avc1.4d401f",
+      "acodec": "none",
+      "format_note": "720p"
+    }
+  ],
+  "title": "Video Title"
+}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Supported Platforms -->
+                        <h4 class="text-primary">GET /api/supported-platforms</h4>
+                        <p>Get list of supported platforms.</p>
+                        
+                        <h5>Response:</h5>
+                        <div class="code-block">
+{
+  "success": true,
+  "platforms": [
+    "youtube.com",
+    "youtu.be",
+    "tiktok.com",
+    "instagram.com",
+    "twitter.com",
+    "x.com",
+    "facebook.com",
+    "vimeo.com",
+    "dailymotion.com",
+    "twitch.tv"
+  ],
+  "total": 10
+}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Health Check -->
+                        <h4 class="text-primary">GET /api/health</h4>
+                        <p>Health check endpoint.</p>
+                        
+                        <h5>Response:</h5>
+                        <div class="code-block">
+{
+  "status": "healthy",
+  "service": "yt-dlp API",
+  "version": "1.0.0"
+}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Format Selectors -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Format Selectors</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>You can use these format selectors in the download endpoint:</p>
+                        <ul>
+                            <li><code>best</code> - Highest quality available</li>
+                            <li><code>best[height<=1080]</code> - Best quality up to 1080p</li>
+                            <li><code>best[height<=720]</code> - Best quality up to 720p</li>
+                            <li><code>best[height<=480]</code> - Best quality up to 480p</li>
+                            <li><code>worst</code> - Lowest quality available</li>
+                            <li><code>bestaudio</code> - Best audio quality only</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Error Codes -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Error Codes</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>400</td>
+                                    <td>Bad Request - Invalid URL or parameters</td>
+                                </tr>
+                                <tr>
+                                    <td>429</td>
+                                    <td>Too Many Requests - Rate limit exceeded</td>
+                                </tr>
+                                <tr>
+                                    <td>500</td>
+                                    <td>Internal Server Error - Server processing error</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Examples -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Usage Examples</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5>JavaScript (Fetch API)</h5>
+                        <div class="code-block">
+// Get video info
+fetch('/api/info', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+
+// Download video
+fetch('/api/download', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    format: 'best[height<=720]',
+    audio_only: false
+  })
+});
+                        </div>
+                        
+                        <h5>Python (requests)</h5>
+                        <div class="code-block">
+import requests
+
+# Get video info
+response = requests.post('/api/info', json={
+    'url': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+})
+data = response.json()
+
+# Download video
+response = requests.post('/api/download', json={
+    'url': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    'format': 'best[height<=720]',
+    'audio_only': False
+})
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Social Media Video Downloader API • Built with Flask and yt-dlp</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

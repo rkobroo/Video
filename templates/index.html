@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Video Downloader API</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-download me-2"></i>Video Downloader API
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/docs">
+                    <i class="fas fa-book me-1"></i>API Docs
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 mb-3">Social Media Video Downloader</h1>
+                    <p class="lead">Download videos from YouTube, TikTok, Instagram, Twitter and more using our REST API</p>
+                    <p class="text-muted mb-4">✨ Files are automatically named using the video title with emojis preserved!</p>
+                </div>
+
+                <!-- API Testing Interface -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-test-tube me-2"></i>API Test Interface</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="videoForm">
+                            <div class="mb-3">
+                                <label for="videoUrl" class="form-label">Video URL</label>
+                                <input type="url" class="form-control" id="videoUrl" 
+                                       placeholder="https://www.youtube.com/watch?v=..." required>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="formatSelect" class="form-label">Quality</label>
+                                    <select class="form-select" id="formatSelect">
+                                        <option value="best[height<=720]">Best 720p</option>
+                                        <option value="best[height<=1080]">Best 1080p</option>
+                                        <option value="best[height<=480]">Best 480p</option>
+                                        <option value="best">Best Available</option>
+                                        <option value="worst">Lowest Quality</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Options</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="audioOnly">
+                                        <label class="form-check-label" for="audioOnly">
+                                            Audio Only (MP3)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex">
+                                <button type="button" class="btn btn-outline-primary" id="getInfoBtn">
+                                    <i class="fas fa-info-circle me-1"></i>Get Info
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="getFormatsBtn">
+                                    <i class="fas fa-list me-1"></i>Available Formats
+                                </button>
+                                <button type="submit" class="btn btn-primary ms-md-auto">
+                                    <i class="fas fa-download me-1"></i>Download
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="resultsSection" class="d-none">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Results</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="loadingSpinner" class="text-center d-none">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2">Processing request...</p>
+                            </div>
+                            <div id="resultsContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supported Platforms -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-globe me-2"></i>Supported Platforms</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="platformsList">
+                            <div class="col-12 text-center">
+                                <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Social Media Video Downloader API • Built with Flask and yt-dlp</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>
