@@ -29,10 +29,20 @@ except ImportError as e:
     # Fallback to regular API if available
     try:
         from api import api_bp
-        app.register_blueprint(api_bp)
+        app.register_blueprint(api_bp, url_prefix='/api')
         logging.info("Regular API blueprint registered as fallback")
     except ImportError:
         logging.error("No API blueprint available")
+
+# Global error handler for serverless
+@app.errorhandler(Exception)
+def handle_exception(e):
+    """Handle unexpected exceptions in serverless environment"""
+    logging.error(f"Unhandled exception: {str(e)}")
+    return jsonify({
+        'error': 'Internal server error',
+        'message': 'Something went wrong processing your request'
+    }), 500
 
 # Web routes
 @app.route('/')
