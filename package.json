@@ -1,13 +1,9 @@
 {
-  "name": "netlify-python-app",
+  "name": "my-netlify-app",
   "version": "1.0.0",
-  "description": "A Netlify project with Python plugin support",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "@netlify/plugin-python": "^2.1.0"
-  }
+  "scripts": {
+    "build": "echo 'No build step configured'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }
