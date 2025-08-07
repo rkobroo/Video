@@ -1,6 +1,6 @@
 [build]
   publish = "dist"
-  
+
 [build.environment]
   PYTHON_VERSION = "3.11"
 
@@ -12,14 +12,3 @@
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
-[[plugins]]
-  package = "@netlify/plugin-python"
-
-[dev]
-  framework = "#static"
